@@ -30,15 +30,32 @@ library("tidyverse")
 ```
 
 ## Examples of data
-
+```{r}
+basketball <- read_excel("Basketball.xlsx")
+basketball <- basketball %>%
+  rename(
+    "Height" = "X1",
+    "Weight" = "X2",
+    "GoalsPercentage" = "X3",
+    "ThrowsPercentage" = "X4",
+    "AveragePointsScored" = "X5"
+  )
+head(basketball, 30)
+```
 
 
 ## Building model
 
-
+```{r}
+model <- lm(AveragePointsScored ~ Height + Weight + GoalsPercentage + ThrowsPercentage, data = basketball)
+summary(model)
+```
 
 ## Interpretation
 
+```{r}
+confint(model)
+```
 
 
 ## Model accuracy assessment

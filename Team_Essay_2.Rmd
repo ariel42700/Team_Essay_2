@@ -31,18 +31,71 @@ library("tidyverse")
 
 ## Examples of data
 ```{r}
-basketball <- read_excel("Basketball.xlsx")
-basketball <- basketball %>%
+bball_data <- read_excel("C:/Users/ariel/Desktop/TeamEssay2/Basketball.xlsx")
+bball_data <- bball_data %>%
   rename(
-    "Height" = "X1",
-    "Weight" = "X2",
-    "GoalsPercentage" = "X3",
-    "ThrowsPercentage" = "X4",
-    "AveragePointsScored" = "X5"
+    "height" = "X1",
+    "weight" = "X2",
+    "FGP" = "X3",
+    "FTP" = "X4",
+    "PPG" = "X5"
   )
 head(basketball, 30)
-```
 
+
+{r}
+FGP_Model <- lm(FGP ~ ., data = bball_data)
+#Summary of the model
+summary(FGP_Model)
+summary(FGP_Model)$coefficient
+
+#Confidence Interval of the model coefficients
+confint(FGP_Model)
+
+#Coefficient of determination
+summary(FGP_Model)$r.squared
+
+
+#RSE
+sigma(FGP_Model)/mean(bball_data$FGP)
+plot(FGP_Model)
+
+
+{r}
+FGP_Model2 <- lm(FGP ~ height + weight + PPG, data = bball_data)
+#Summary of the model
+summary(FGP_Model2)
+summary(FGP_Model2)$coefficient
+
+#Confidence Interval of the model coefficients
+confint(FGP_Model2)
+
+#Coefficient of determination
+summary(FGP_Model2)$r.squared
+
+
+#RSE
+sigma(FGP_Model2)/mean(bball_data$FGP)
+plot(FGP_Model2)
+
+{r}
+FGP_Model3 <- lm(FTP ~ height + weight, data = bball_data)
+#Summary of the model
+summary(FGP_Model3)
+summary(FGP_Model3)$coefficient
+
+#Confidence Interval of the model coefficients
+confint(FGP_Model3)
+
+#Coefficient of determination
+summary(FGP_Model3)$r.squared
+
+
+#RSE
+sigma(FGP_Model3)/mean(bball_data$FGP)
+
+plot(FGP_Model3)
+```
 
 ## Building model
 

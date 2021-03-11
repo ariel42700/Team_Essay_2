@@ -4,27 +4,84 @@ author: "Ariel Lutati"
 date: "3/6/2021"
 output: pdf_document
 ---
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r}
+library("tidyverse")
+library("readxl")
+library(rlist)
+library(Metrics)
+library(TTR)
+library(gridExtra)
+library(xtable)
+library(tinytex)
 ```
 
-## R Markdown
+```{r}
+bball_data <- read_excel("C:/Users/ariel/Desktop/TeamEssay2/Basketball.xlsx")
+bball_data <- bball_data %>%
+  rename(
+    "height" = "X1",
+    "weight" = "X2",
+    "FGP" = "X3",
+    "FTP" = "X4",
+    "PPG" = "X5"
+  )
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+train_data = bball_data[1:30,]
+test_data = bball_data[31:52,]
 ```
 
-## Including Plots
+```{r}
+FGP_Model <- lm(FGP ~ ., data = bball_data)
+#Summary of the model
+summary(FGP_Model)
+summary(FGP_Model)$coefficient
 
-You can also embed plots, for example:
+#Confidence Interval of the model coefficients
+confint(FGP_Model)
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+#Coefficient of determination
+summary(FGP_Model)$r.squared
+
+
+#RSE
+sigma(FGP_Model)/mean(bball_data$FGP)
+plot(FGP_Model)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r}
+Height_Model <- lm(height ~ ., data = bball_data)
+#Summary of the model
+summary(Height_Model)
+summary(Height_Model)$coefficient
+
+#Confidence Interval of the model coefficients
+confint(Height_Model)
+
+#Coefficient of determination
+summary(Height_Model)$r.squared
+
+
+#RSE
+sigma(Height_Model)/mean(bball_data$height)
+plot(Height_Model)
+
+```
+
+```{r}
+train_model <-lm(height ~ ., data = train_data)
+train_pred <- predict(train_model, train_data)
+rmse(train_pred, train_data$height)
+res <- train_pred - train_data$height
+sum(res)
+```
+```{r}
+test_pred <- predict(train_model, test_data)
+rmse(test_pred, test_data$height)
+res2 <- test_pred - test_data$height
+sum(res2)
+
+plot(train_model)
+```
+
+

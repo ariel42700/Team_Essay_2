@@ -5,8 +5,15 @@ date: "3/6/2021"
 output: pdf_document
 ---
 ## Introduction
+In this essay, our team will perform the process of forecasting height model based on several explanatory variables. The goal of that essay is model the predicted height based on weight, FGP, FTP and PPG of a basketball team. To find the best model for predicted height, we need to find the model coefficient that minimize the sum of squared errors between the predicts height and the actual height.
 
 ## Formula and Basics
+Multiple linear regression: y = $\beta_0$ + $\beta_1x_1$ + $\beta_2x_2$ +...+$\beta_kx_k$ + $\epsilon$
+
+-   $\beta_0$ is value of y when all $x_k$ are equal to zero
+-   $\beta_k$ are beta coefficients which measure the correlation between the result and it's predictor variables
+-   $x_k$ are the independent variables
+-   $\epsilon$ is the error term, the part of y that can be explained through the regression model.
 
 ## Loading Required R Packages
 
@@ -21,6 +28,20 @@ library("rlist")
 ```
 
 ## Data Description
+Examples of data and problem
+```{r}
+bball_data <- read_excel("Basketball.xlsx")
+bball_data <- bball_data %>%
+  rename(
+    "height" = "X1",
+    "weight" = "X2",
+    "FGP" = "X3",
+    "FTP" = "X4",
+    "PPG" = "X5"
+  )
+full_data = bball_data[1:55,]
+bball_data
+```
 
 ## Visualization
 

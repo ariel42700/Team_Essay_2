@@ -19,12 +19,12 @@ Multiple linear regression: y = $\beta_0$ + $\beta_1x_1$ + $\beta_2x_2$ +...+$\b
 
   + readxl - to read data from xl
   + tidyverse - for data visualization and manipulation
-  + rlist - to compute rmse
+  + Metrics - to compute rmse
 
 ```{r}
 library("tidyverse") 
 library("readxl")
-library("rlist")
+library("Metrics")
 ```
 
 ## Data Description

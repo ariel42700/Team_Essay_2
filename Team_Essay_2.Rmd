@@ -5,7 +5,7 @@ date: "3/14/2021"
 output: pdf_document
 ---
 ## Introduction
-In this essay, our team will perform the process of forecasting height model based on several explanatory variables. The goal of that essay is model the predicted height based on weight, FGP, FTP and PPG of a basketball team. To find the best model for predicted height, we need to find the model coefficient that minimize the sum of squared errors between the predicts height and the actual height.
+In this essay, our team will perform the process of forecasting height model (in feet) based on several explanatory variables. The goal of that essay is model the predicted height based on weight (in lbs), FGP (field goal percentage), FTP (free throw percentage) and PPG (points per game) of 52 players in the NBA. To find the best model for predicted height, we need to find the model coefficient that minimize the sum of squared errors between the predicts height and the actual height.
 
 ## Formula and Basics
 Multiple linear regression: y = $\beta_0$ + $\beta_1x_1$ + $\beta_2x_2$ +...+$\beta_kx_k$ + $\epsilon$
@@ -158,7 +158,7 @@ We can see that our model has the following indicators:
 
 Height_Model: `height = 3.798049837 + 0.011489032*weight + 1.138889566*FGP - 0.049315550*FTP - 0.008273347*PPG`
 
-  + We can say that height = 3.798049837, when all the other predictors are set to 0.
+  + We can say that height = 3.798049837 feet, when all the other predictors are set to 0.
   + In our model, it can be seen that p-value of the F-statistic is < 1.41e-05, which is highly significant. This means that, at         least, one of the predictor variables is significantly related to the outcome variable.
   + To see which predictor variables are significant, you can examine the coefficients table, which shows the estimate of regression     beta coefficients and the associated t-statistic p-values:
   
@@ -207,7 +207,7 @@ All in all, our task was to test a number of models, each varying by the respons
   + points per game (PPG)
 
 After we observed their corresponding beta coefficient values and compared the t-values (three asterisks next to the data of the predictor variable with highest t-value, in concerned R code output), it was clear that weight was a significant predictor of height (it's t-value was 7.899, beta coefficient value = 0.011489), followed by the points per game ( t-value was -1.242, beta coefficient value = -1.242).
-Our data containing 52 data points was then split up into two parts, the first 30 data points going to the training set and the next 22 data points going to the testing set. The training set model had a RMSE (Root Mean Square Error) value of 0.22 with a sum of residuals of -1.865175 * 10^-14. A small RMSE and sum of residual values signified that our model predicted the height of basketball players quite accurately. Additionally, the testing set model showed further positive results with a RMSE value of around 0.28; its residual values did prove otherwise at a sum total of 1.664502, though it was only due to the number of outliers in the data. 
+Our data containing 52 data points was then split up into two parts, the first 30 players going to the training set and the next 22 players going to the testing set. The training set model had a RMSE (Root Mean Square Error) value of 0.22 with a sum of residuals of -1.865175 * 10^-14. A small RMSE and sum of residual values signified that our model predicted the height of basketball players quite accurately. Additionally, the testing set model showed further positive results with a RMSE value of around 0.28; its residual values did prove otherwise at a sum total of 1.664502, though it was only due to the number of outliers in the data. 
 Looking at our model's initial indicators, most of them (also called as the metrics) had already satisfied to a reasonable extent the conditions for what makes a reliable model . We saw improvements (though not as much as ideally wanted) once we rebuilt the model without variables FTP and FGP; we saw:
 
 + residual standard value closer to 1 (0.2419 to 0.2563)

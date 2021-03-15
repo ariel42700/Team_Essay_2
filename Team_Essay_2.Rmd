@@ -5,7 +5,7 @@ date: "3/14/2021"
 output: pdf_document
 ---
 ## Introduction
-In this essay, our team will perform the process of forecasting height model based on several explanatory variables. The goal of that essay is model the predicted height based on weight, FGP, FTP and PPG of a basketball team. To find the best model for predicted height, we need to find the model coefficient that minimize the sum of squared errors between the predicts height and the actual height.
+In this essay, our team will perform the process of forecasting height model based on several explanatory variables. The goal of this essay is to model the predicted height based on weight, FGP, FTP and PPG of a basketball team. To find the best model for predicted height, we need to find the model coefficients that minimize the sum of squared errors between the predicted height and the actual height.
 
 ## Formula and Basics
 Multiple linear regression: y = $\beta_0$ + $\beta_1x_1$ + $\beta_2x_2$ +...+$\beta_kx_k$ + $\epsilon$
@@ -33,7 +33,14 @@ library("GGally")
 ```
 
 ## Data Description
-Examples of data and problem
+Examples of data and problem:
+
+  + height represents the height of basketball players in feet.
+  + weight represents the weight of basketball players in pounds.
+  + FGP represents the percentage of successful field goals (out of 100 attempted).
+  + FTP represents the percentage of successful free throws (out of 100 attempted).
+  + PPG represents average points scored per game.
+  
 ```{r}
 bball_data <- read_excel("Basketball.xlsx")
 bball_data <- bball_data %>%
@@ -92,7 +99,7 @@ We can see that resulting regression equation is:
   + b3 = 0.049315550
   + b4 = -0.008273347
 
-We also observe that weight is the significant predictor.
+We also observe that weight is the most significant predictor.
 
 ## Model Evaluation
 
@@ -187,27 +194,27 @@ Removing FTP and FGP we get the following:
 Height_Model: `height = 3.798049837 + 0.011489032*weight + 1.138889566*FGP - 0.049315550*FTP - 0.008273347*PPG`
 
 1. weight = 225, FGP = 0.482, FTP = 0.701, PPG = 11.6
-  + Estimate of Height: 6.8
-  + Actual: 6.8
+  + Estimate of Height: 6.8 feet
+  + Actual: 6.8 feet
 
 2. weight = 215, FGP = 0.457, FTP = 0.734, PPG = 5.8
-  + Estimate of Height: 6.7
-  + Actual: 6.8
+  + Estimate of Height: 6.7 feet
+  + Actual: 6.8 feet
   
 3. weight = 230, FGP = 0.435, FTP = 0.764, PPG = 8.3
-  + Estimate of Height: 6.82
-  + Actual: 7
+  + Estimate of Height: 6.82 feet 
+  + Actual: 7 feet
   
 ## Conclusion
-All in all, our task was to test a number of models, each varying by the response variable used, and found that the model with height as the response variable gave the most notable result. Hence, this model was used for regression analysis, and we conducted the pertaining steps to find which of the following predictor variables were associated the strongest with height:
+All in all, our task was to test a number of models, each varying by the response(dependent) variable used, and found that the model with height as the response(dependent) variable gave the most notable result. Hence, this model was used for regression analysis, and we conducted the pertaining steps to find which of the following predictor variables were associated the strongest with height:
 
   + weight
   + free-throw percentage (FTP)
   + field goal percentage (FGP)
-  + points per game (PPG)
+  + average points scored per game (PPG)
 
 After we observed their corresponding beta coefficient values and compared the t-values (three asterisks next to the data of the predictor variable with highest t-value, in concerned R code output), it was clear that weight was a significant predictor of height (it's t-value was 7.899, beta coefficient value = 0.011489), followed by the points per game ( t-value was -1.242, beta coefficient value = -1.242).
-Our data containing 52 data points was then split up into two parts, the first 30 data points going to the training set and the next 22 data points going to the testing set. The training set model had a RMSE (Root Mean Square Error) value of 0.22 with a sum of residuals of -1.865175 * 10^-14. A small RMSE and sum of residual values signified that our model predicted the height of basketball players quite accurately. Additionally, the testing set model showed further positive results with a RMSE value of around 0.28; its residual values did prove otherwise at a sum total of 1.664502, though it was only due to the number of outliers in the data. 
+Our data containing 52 players was then split up into two parts, the first 30 players going to the training set and the next 22 players going to the testing set. The training set model had a RMSE (Root Mean Square Error) value of 0.22 with a sum of residuals of -1.865175 * 10^-14. A small RMSE and sum of residual values signified that our model predicted the height of basketball players quite accurately. Additionally, the testing set model showed further positive results with a RMSE value of around 0.28; its residual values did prove otherwise at a sum total of 1.664502, though it was only due to the number of outliers in the data. 
 Looking at our model's initial indicators, most of them (also called as the metrics) had already satisfied to a reasonable extent the conditions for what makes a reliable model . We saw improvements (though not as much as ideally wanted) once we rebuilt the model without variables FTP and FGP; we saw:
 
 + residual standard value closer to 1 (0.2419 to 0.2563)
